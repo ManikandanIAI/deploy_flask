@@ -3,11 +3,19 @@ kind: Service
 metadata:
   name: flask-number-game-service
   namespace: default
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-tls-cert: "flask-cert"
 spec:
   selector:
     app: flask-number-game
   ports:
-  - protocol: TCP
+  ports:
+  - name: http
     port: 80
     targetPort: 5000
+    protocol: TCP
+  - name: https
+    port: 443
+    targetPort: 5000
+    protocol: TCP
   type: LoadBalancer
