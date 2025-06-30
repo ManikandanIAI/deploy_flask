@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Guessing Game</title>
+</head>
+<body>
+    <h1>Guess the Number!</h1>
+    <form method="POST">
+        <input type="number" name="guess" required>
+        <input type="submit" value="Guess">
+    </form>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+    {% if new_game %}
+        <a href="/">Play Again</a>
+    {% endif %}
+</body>
+</html>
