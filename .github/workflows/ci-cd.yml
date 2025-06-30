@@ -39,14 +39,20 @@ jobs:
     - name: Set up kubectl
       uses: azure/setup-kubectl@v3
       with:
-        version: 'v1.21.0'
+        version: 'v1.21.0' 
 
-    - name: Log in to AKS
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set AKS context
       uses: azure/aks-set-context@v3
       with:
         resource-group: ${{ secrets.RESOURCE_GROUP }}
         cluster-name: ${{ secrets.CLUSTER_NAME }}
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
 
     - name: Deploy to AKS
       run: |
