@@ -40,16 +40,14 @@ jobs:
       uses: azure/setup-kubectl@v3
       with:
         version: 'v1.21.0' 
-
-
-  
     - name: Set AKS context
       uses: azure/aks-set-context@v4
       with:
-        resource-group: ${{ secrets.RESOURCE_GROUP }}
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ secrets.CLUSTER_NAME }}
+        resource-group: ${{ secrets.RESOURCE_GROUP }}
 
-
+  
     - name: Deploy to AKS
       run: |
         sed -i "s|<ACR_NAME>|${{ secrets.ACR_NAME }}|g" kubernetes/deployment.yaml
