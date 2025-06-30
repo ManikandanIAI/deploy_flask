@@ -36,17 +36,16 @@ jobs:
         docker build -f Dockerfile -t ${{ secrets.ACR_NAME }}.azurecr.io/flask-number-game:${{ github.sha }} .
         docker push ${{ secrets.ACR_NAME }}.azurecr.io/flask-number-game:${{ github.sha }} 
 
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v3
+    - name: Azure Login
+      uses: azure/login@v1
       with:
-        version: 'v1.21.0' 
-    - name: Set AKS context
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set AKS Context
       uses: azure/aks-set-context@v4
       with:
-        creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        cluster-name: ${{ secrets.CLUSTER_NAME }}
-        resource-group: ${{ secrets.RESOURCE_GROUP }}
-
+        resource-group: deploy
+        cluster-name: deploy
   
     - name: Deploy to AKS
       run: |
