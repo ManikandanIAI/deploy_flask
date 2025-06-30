@@ -33,8 +33,8 @@ jobs:
 
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.ACR_NAME }}/flask-number-game:${{ github.sha }} .
-        docker push ${{ secrets.ACR_NAME }}/flask-number-game:${{ github.sha }}
+        docker build -t ${{ secrets.ACR_NAME }}/flask-number-game:latest .
+        docker push ${{ secrets.ACR_NAME }}/flask-number-game:latest
 
     - name: Set up kubectl
       uses: azure/setup-kubectl@v3
